@@ -1,2 +1,2 @@
-# MyHub
-Record some code worth recording 
+# MyHuB
+记录一些值得记录的代码
