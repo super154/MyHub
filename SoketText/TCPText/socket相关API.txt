@@ -1,0 +1,37 @@
+服务端：
+	创建套接字：int socket(int domain, int type, int protocol) 返回一个唯一标识的Socket。
+	domain 可用的值是：
+		名称		含义		名称		含义
+		PF_UNIX,PF_LOCAL	本地通信		PF_X25		ITU-T X25 / ISO-8208协议
+		AF_INET,PF_INET	IPv4 Internet协议	PF_AX25		Amateur radio AX.25
+		PF_INET6		IPv6 Internet协议	PF_ATMPVC	原始ATM PVC访问
+		PF_IPX		IPX-Novell协议	PF_APPLETALK	Appletalk
+		PF_NETLINK	内核用户界面设备	PF_PACKET	底层包访问
+	type 可用的值是：
+		名称		含义
+		SOCK_STREAM	Tcp连接，提供序列化的、可靠的、双向连接的字节流。支持带外数据传输
+		SOCK_DGRAM	支持UDP连接（无连接状态的消息）
+		SOCK_SEQPACKET	序列化包，提供一个序列化的、可靠的、双向的基本连接的数据传输通道，数据长度定常。每次调用读系统调用时数据需要将全部数据读出
+		SOCK_RAW	RAW类型，提供原始网络协议访问
+		SOCK_RDM	提供可靠的数据报文，不过可能数据会有乱序
+		SOCK_PACKET	这是一个专用类型，不能呢过在通用程序中使用
+
+	绑定套接字：int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
+		sockfd，即要操作的socket描述字，socket()函数的返回值。
+		addr，一个const struct sockaddr *指针，指向要绑定给sockfd的协议地址。这个地址结构根据地址创建socket时的地址协议族的不同而不同。
+		addrlen，对应地址的长度。
+
+	监听套接字：int listen(int sockfd, int backlog);
+		sockfd为要监听的socket描述字。
+		blacklog为相应socket可以排队的最大连接个数。
+
+	接收监听到的信息：int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen)
+		sockfd为服务器的socket描述字。
+		addr为指向struct sockaddr *的指针，用于返回客户端的协议地址。
+		addrlen为协议地址的长度。
+
+客户端：
+	发出连接请求：int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
+		sockfd即为客户端的socket描述字。
+		addr为要连接的服务器的socket地址。
+		addrlen为服务器socket地址的长度。
